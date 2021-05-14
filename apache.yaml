@@ -1,0 +1,9 @@
+---
+-name: apache play
+ hosts: all
+ become: yes
+ -name: update ubuntu packge
+  apt:
+  name: apache2
+  update_cache: yes
+  state: present
