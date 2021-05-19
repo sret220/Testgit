@@ -1,6 +1,6 @@
 ---
 - name: Deploy spring petclinic as a Linux service
-  hosts: ubuntu
+  hosts: appserver
   become: yes
   tasks: 
     -name: Update ubuntu packages and install java
@@ -12,7 +12,7 @@
         ansible.builtin.file:
         path: /usr/share/springpetclinic
         state: directory
-     - name: download spring petclinic
+       - name: download spring petclinic
         get_url:
         url: https://referenceapplicationskhaja.s3-us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar
         dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
