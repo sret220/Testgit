@@ -1,0 +1,21 @@
+---
+- name:  Deploy spring petclinic  as linux server
+  hosts: appserver
+  become: yes
+  tasks:
+    - name: update packages and instalal java packages
+      apt:
+      name: openjdk11- jdk
+      update_cache: yes
+      state: present
+- name: Create a spring petckinic directory
+      file: 
+      path: /usr/share/springpetclinic
+        state: directory
+        mode: '0755'
+        state: directory
+-  name: download spring-petclinic
+    get_url: 
+      url: 
+      dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+
