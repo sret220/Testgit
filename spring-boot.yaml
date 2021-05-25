@@ -8,14 +8,34 @@
       name: openjdk11- jdk
       update_cache: yes
       state: present
-- name: Create a spring petckinic directory
+    - name: Create a spring petckinic directory
       file: 
       path: /usr/share/springpetclinic
         state: directory
         mode: '0755'
         state: directory
--  name: download spring-petclinic
-    get_url: 
-      url: 
-      dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+    - name: download spring-petclinic
+      get_url: 
+        url: 
+        dest: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+    - name: Create springbootuser
+      user:
+       name: Springbootuser
+       password: springbootuser
+       state: present
 
+    - name: Change file ownership of jar file
+      ansible.builtin.file:
+        path: /usr/share/springpetclinic/spring-petclinic-2.4.2.jar
+        owner: springbootuser
+        mode: '500'
+    - name: Copying the spring petclinic service
+      copy:
+         dest: /etc/systemd/springpetclinic.service
+         src: springpetclinic.service
+    - name: spring-petclinic.service
+      systemd:
+        name: springpetclinic.service
+        enabled: yes
+        state: started
+        
